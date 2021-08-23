@@ -1,4 +1,4 @@
-package com.hdxxback.demo.pojo;
+package com.hdxxback.demo.Pojo;
 
 import lombok.Data;
 import lombok.ToString;
