@@ -1,4 +1,4 @@
 package com.hdxxback.demo.Service;
 
-public interface teacherService {
+public interface TeacherService {
 }
