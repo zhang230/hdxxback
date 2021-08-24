@@ -1,6 +1,7 @@
 package com.hdxxback.demo.Controller;
 
 
+import com.hdxxback.demo.Pojo.Course_category_manage;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.User;
 import com.hdxxback.demo.Service.AdminService;
@@ -47,5 +48,31 @@ public class AdminController {
     @PostMapping("/findUserInfos")
     public ResultData<List<User>> findUserInfos(@RequestBody User user){
         return adminService.findUserInfos(user);
+    }
+
+//-------------------------------------------------------
+
+    @CrossOrigin
+    @GetMapping("/allCourseClassInfo")
+    public ResultData<List<Course_category_manage>> allCourseClassInfo(){
+        return adminService.allCourseClassInfo();
+    }
+
+    @CrossOrigin
+    @PutMapping("/courseClassUpdate")
+    public ResultData<Course_category_manage> courseClassUpdate(@RequestBody Course_category_manage course_category_manage){
+        return adminService.courseClassUpdate(course_category_manage);
+    }
+
+    @CrossOrigin
+    @PostMapping("/courseClassAdd")
+    public ResultData<Course_category_manage> courseClassAdd(@RequestBody Course_category_manage course_category_manage){
+        return adminService.courseClassAdd(course_category_manage);
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/courseClassDelete")
+    public ResultData<Course_category_manage> courseClassDelete(@RequestBody Course_category_manage course_category_manage){
+        return adminService.courseClassDelete(course_category_manage);
     }
 }
