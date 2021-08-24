@@ -1,10 +1,12 @@
 package com.hdxxback.demo.Mapper;
 
+import com.hdxxback.demo.Pojo.Course_category_manage;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -45,4 +47,24 @@ public interface AdminMapper {
             "email like #{email} or " +
             "user_nickname like #{user_nickname}) and role!='admin'")
     public List<User> findUserInfos(User user);
+
+    //-----------------------------------
+    @Select("select * from course_category_manage")
+    List<Course_category_manage> allCourseClassInfo();
+
+    @Update("update course_category_manage " +
+            "set course_category_id=#{course_category_id},course_category_name=#{course_category_name}," +
+            "course_father_name=#{course_father_name},course_number=#{course_number},course_status=#{course_status}" +
+            ",course_create_time=#{course_create_time},course_shortcut=#{course_shortcut} where course_category_id=#{course_category_id}")
+    Integer courseClassUpdate(Course_category_manage course_category_manage);
+
+    @Insert("insert into course_category_manage(course_category_id,course_category_name,course_father_name,course_number," +
+            "course_status,course_create_time,course_shortcut)" +
+            "values(#{course_category_id},#{course_category_name},#{course_father_name},#{course_number},#{course_status}," +
+            "#{course_create_time},#{course_shortcut})")
+    Integer courseClassAdd(Course_category_manage course_category_manage);
+
+    @Delete("delete from course_category_manage where course_category_id=#{course_category_id}")
+    Integer courseClassDelete(Course_category_manage course_category_manage);
+
 }

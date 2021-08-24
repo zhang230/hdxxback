@@ -1,6 +1,7 @@
 package com.hdxxback.demo.Service.Impl;
 
 import com.hdxxback.demo.Mapper.AdminMapper;
+import com.hdxxback.demo.Pojo.Course_category_manage;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.User;
 import com.hdxxback.demo.Service.AdminService;
@@ -57,5 +58,32 @@ public class AdminServiceImpl implements AdminService {
           List<User> userList=adminMapper.findUserInfos(user);
 //          System.out.println(userList);
           return new ResultData<List<User>>(200,"操作成功",userList);
+    }
+
+    //------------------------------------------------
+    @Override
+    public ResultData<List<Course_category_manage>> allCourseClassInfo(){
+        return new ResultData<List<Course_category_manage>>(200,"操作成功",adminMapper.allCourseClassInfo());
+    }
+
+    @Override
+    public ResultData<Course_category_manage> courseClassUpdate(Course_category_manage course_category_manage){
+        Integer n = adminMapper.courseClassUpdate(course_category_manage);
+        if(n>0) return new ResultData<Course_category_manage>(200,"操作成功",course_category_manage);
+        return new ResultData<Course_category_manage>(500,"操作失败",null);
+    }
+
+    public ResultData<Course_category_manage> courseClassAdd(Course_category_manage course_category_manage){
+            Integer n = adminMapper.courseClassAdd(course_category_manage);
+
+        if(n>0) return new ResultData<Course_category_manage>(200,"操作成功",course_category_manage);
+        return new ResultData<Course_category_manage>(500,"操作失败",null);
+
+    }
+
+    public ResultData<Course_category_manage> courseClassDelete(Course_category_manage course_category_manage){
+        Integer n=adminMapper.courseClassDelete(course_category_manage);
+        if(n>0) return new ResultData<Course_category_manage>(200,"操作成功",course_category_manage);
+        return new ResultData<Course_category_manage>(500,"操作失败",null);
     }
 }
