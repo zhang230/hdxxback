@@ -67,6 +67,7 @@ public class AdminController {
     @CrossOrigin
     @PostMapping("/courseClassAdd")
     public ResultData<Course_category_manage> courseClassAdd(@RequestBody Course_category_manage course_category_manage){
+        System.out.println("TestAddController: "+course_category_manage);
         return adminService.courseClassAdd(course_category_manage);
     }
 

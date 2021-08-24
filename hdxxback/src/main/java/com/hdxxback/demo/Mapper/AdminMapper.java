@@ -55,13 +55,13 @@ public interface AdminMapper {
     @Update("update course_category_manage " +
             "set course_category_id=#{course_category_id},course_category_name=#{course_category_name}," +
             "course_father_name=#{course_father_name},course_number=#{course_number},course_status=#{course_status}" +
-            ",course_create_time=#{course_create_time},course_shotcut=#{course_shotcut} where course_category_id=#{course_category_id}")
+            ",course_create_time=#{course_create_time},course_shortcut=#{course_shortcut} where course_category_id=#{course_category_id}")
     Integer courseClassUpdate(Course_category_manage course_category_manage);
 
     @Insert("insert into course_category_manage(course_category_id,course_category_name,course_father_name,course_number," +
-            "course_status,course_create_time,course_shotcut)" +
+            "course_status,course_create_time,course_shortcut)" +
             "values(#{course_category_id},#{course_category_name},#{course_father_name},#{course_number},#{course_status}," +
-            "#{course_create_time},#{course_shotcut})")
+            "#{course_create_time},#{course_shortcut})")
     Integer courseClassAdd(Course_category_manage course_category_manage);
 
     @Delete("delete from course_category_manage where course_category_id=#{course_category_id}")
