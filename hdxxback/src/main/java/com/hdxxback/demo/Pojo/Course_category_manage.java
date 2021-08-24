@@ -14,5 +14,5 @@ public class Course_category_manage {
     private Integer course_number;
     private Boolean course_status;
     private Date course_create_time;
-    private Boolean course_shotcut;
+    private Boolean course_shortcut;
 }
