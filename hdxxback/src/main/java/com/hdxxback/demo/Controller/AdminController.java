@@ -40,7 +40,7 @@ public class AdminController {
     @CrossOrigin
     @DeleteMapping("/userInfoDelete")
     public ResultData<User> userInfoDelete(@RequestBody User user){
-        System.out.println(user);
+//        System.out.println(user);
        return adminService.userInfoDelete(user);
     }
 
