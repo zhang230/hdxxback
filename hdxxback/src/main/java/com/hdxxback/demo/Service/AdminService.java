@@ -18,4 +18,5 @@ public interface AdminService {
     public ResultData<Course_category_manage> courseClassUpdate(Course_category_manage course_category_manage);
     public ResultData<Course_category_manage> courseClassAdd(Course_category_manage course_category_manage);
     public ResultData<Course_category_manage> courseClassDelete(Course_category_manage course_category_manage);
+    ResultData<List<Course_category_manage>> findCourseClassInfo(Course_category_manage course_category_manage);
 }

@@ -67,7 +67,6 @@ public class AdminController {
     @CrossOrigin
     @PostMapping("/courseClassAdd")
     public ResultData<Course_category_manage> courseClassAdd(@RequestBody Course_category_manage course_category_manage){
-        System.out.println("TestAddController: "+course_category_manage);
         return adminService.courseClassAdd(course_category_manage);
     }
 
@@ -75,5 +74,11 @@ public class AdminController {
     @DeleteMapping("/courseClassDelete")
     public ResultData<Course_category_manage> courseClassDelete(@RequestBody Course_category_manage course_category_manage){
         return adminService.courseClassDelete(course_category_manage);
+    }
+
+    @CrossOrigin
+    @PostMapping("/findCourseClassInfo")
+    public ResultData<List<Course_category_manage>> findCourseClassInfo(@RequestBody Course_category_manage course_category_manage){
+        return adminService.findCourseClassInfo(course_category_manage);
     }
 }

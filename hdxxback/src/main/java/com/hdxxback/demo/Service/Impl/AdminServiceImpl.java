@@ -73,6 +73,7 @@ public class AdminServiceImpl implements AdminService {
         return new ResultData<Course_category_manage>(500,"操作失败",null);
     }
 
+    @Override
     public ResultData<Course_category_manage> courseClassAdd(Course_category_manage course_category_manage){
             Integer n = adminMapper.courseClassAdd(course_category_manage);
 
@@ -81,9 +82,17 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
     public ResultData<Course_category_manage> courseClassDelete(Course_category_manage course_category_manage){
         Integer n=adminMapper.courseClassDelete(course_category_manage);
         if(n>0) return new ResultData<Course_category_manage>(200,"操作成功",course_category_manage);
         return new ResultData<Course_category_manage>(500,"操作失败",null);
+    }
+
+    @Override
+    public ResultData<List<Course_category_manage>> findCourseClassInfo(Course_category_manage course_category_manage){
+        List<Course_category_manage> ccList=adminMapper.findCourseClassInfo(course_category_manage);
+        System.out.println(ccList);
+        return new ResultData<List<Course_category_manage>>(200,"操作成功",ccList);
     }
 }
