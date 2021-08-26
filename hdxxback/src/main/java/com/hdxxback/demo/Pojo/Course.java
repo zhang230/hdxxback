@@ -1,12 +1,15 @@
 package com.hdxxback.demo.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ToString
+@JsonIgnoreProperties(value = { "handler" })
 public class Course {
     private Integer course_id;
     private String course_name;
@@ -26,4 +29,5 @@ public class Course {
     private String course_origin;
     private String course_icon;
     private Date course_create_time;
+    private List<Chapter> chapters;
 }

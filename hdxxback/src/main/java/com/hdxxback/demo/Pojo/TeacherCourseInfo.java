@@ -1,5 +1,6 @@
 package com.hdxxback.demo.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Data
 @ToString
+@JsonIgnoreProperties(value = { "handler" })
 public class TeacherCourseInfo {
     //    user.user_id,course.course_id,chapter.chapter_id,
 //    course.course_name,course.course_category,
@@ -27,8 +29,9 @@ public class TeacherCourseInfo {
     private Date course_open_time;
     private String course_belong_to;
     private String course_origin;
+    private String course_icon;
 
-    public TeacherCourseInfo(Integer user_id, Integer course_id, Integer chapter_id, String course_name, String course_category, String course_zhang_name, String course_jie_name, String course_src_path, Integer course_check_status, Integer course_time, Date course_open_time, String course_belong_to, String course_origin) {
+    public TeacherCourseInfo(Integer user_id, Integer course_id, Integer chapter_id, String course_name, String course_category, String course_zhang_name, String course_jie_name, String course_src_path, Integer course_check_status, Integer course_time, Date course_open_time, String course_belong_to, String course_origin, String course_icon) {
         this.user_id = user_id;
         this.course_id = course_id;
         this.chapter_id = chapter_id;
@@ -42,5 +45,6 @@ public class TeacherCourseInfo {
         this.course_open_time = course_open_time;
         this.course_belong_to = course_belong_to;
         this.course_origin = course_origin;
+        this.course_icon = course_icon;
     }
 }

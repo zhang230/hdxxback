@@ -1,5 +1,6 @@
 package com.hdxxback.demo.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Data
 @ToString
+@JsonIgnoreProperties(value = { "handler" })
 public class Course_category_manage {
     private Integer course_category_id;
     private String course_category_name;

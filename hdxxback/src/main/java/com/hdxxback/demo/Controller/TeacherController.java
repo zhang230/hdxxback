@@ -65,7 +65,7 @@ public class TeacherController {
                                                     @RequestParam("file") MultipartFile[] files){
         TeacherCourseInfo teacherCourseInfo = new TeacherCourseInfo(user_id,course_id,chapter_id,
                 course_name,course_category,course_zhang_name,course_jie_name,course_src_path,
-                course_check_status,course_time,course_open_time,course_belong_to,course_origin);
+                course_check_status,course_time,course_open_time,course_belong_to,course_origin,"");
           return teacherService.uploadFile(teacherCourseInfo,files);
     }
 

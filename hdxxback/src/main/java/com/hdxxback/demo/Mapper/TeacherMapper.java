@@ -27,7 +27,7 @@ public interface TeacherMapper {
             "cs.course_name as course_name,cs.course_category as course_category,c.course_zhang_name as course_zhang_name," +
             "c.course_jie_name as course_jie_name,c.course_src_path as course_src_path,c.course_check_status as course_check_status," +
             "cs.course_time as course_time,cs.course_open_time as course_open_time,cs.course_belong_to as course_belong_to," +
-            "cs.course_origin as course_origin" +
+            "cs.course_origin as course_origin,cs.course_icon as course_icon" +
             " from user as u,user_course_chapter_info as ucci," +
             "course as cs,course_chapter as cc,chapter as c " +
             "where u.user_id=#{user_id} and " +
@@ -50,7 +50,7 @@ public interface TeacherMapper {
     @Select("select * from course where course_name=#{course_name} and delete_flag=0")
     public Course findSameCourseNameCouse(TeacherCourseInfo teacherCourseInfo);
 
-    @Insert("insert into course(course_name,course_category,course_time,course_open_time,course_belong_to,course_origin) values(#{course_name},#{course_category},#{course_time},#{course_open_time},#{course_belong_to},#{course_origin})")
+    @Insert("insert into course(course_name,course_category,course_time,course_open_time,course_belong_to,course_origin,course_icon,course_status) values(#{course_name},#{course_category},#{course_time},#{course_open_time},#{course_belong_to},#{course_origin},#{course_icon},'免费公开')")
     @Options(useGeneratedKeys = true,keyProperty = "course_id",keyColumn = "course_id")
     public Integer insertCourse(TeacherCourseInfo teacherCourseInfo);
 
@@ -69,7 +69,7 @@ public interface TeacherMapper {
             "cs.course_name as course_name,cs.course_category as course_category,c.course_zhang_name as course_zhang_name," +
             "c.course_jie_name as course_jie_name,c.course_src_path as course_src_path,c.course_check_status as course_check_status," +
             "cs.course_time as course_time,cs.course_open_time as course_open_time,cs.course_belong_to as course_belong_to," +
-            "cs.course_origin as course_origin" +
+            "cs.course_origin as course_origin,cs.course_icon as course_icon" +
             " from user as u,user_course_chapter_info as ucci," +
             "course as cs,course_chapter as cc,chapter as c " +
             "where (u.user_id=#{user_id} and " +

@@ -1,10 +1,12 @@
 package com.hdxxback.demo.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
+@JsonIgnoreProperties(value = { "handler" })
 public class Chapter {
     private Integer chapter_id;
     private String course_zhang_name;

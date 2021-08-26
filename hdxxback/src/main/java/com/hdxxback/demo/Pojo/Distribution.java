@@ -1,5 +1,6 @@
 package com.hdxxback.demo.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Data
 @ToString
+@JsonIgnoreProperties(value = { "handler" })
 public class Distribution {
     private Integer distribution_id;
     private String distribution_name;
