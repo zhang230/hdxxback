@@ -39,8 +39,9 @@ public class TeacherController {
     public ResultData<TeacherCourseInfo> courseVideoInfoDelete(@RequestBody TeacherCourseInfo teacherCourseInfo){
 //        System.out.println(teacherCourseInfo);
         //需要删除course_chapter 和 chapter表对应的记录。因为teacherCourseInfo对象已经包含了 该用户对应的course和chapter。
-
-
+//        System.out.println("用户id:"+teacherCourseInfo.getUser_id());
+//       System.out.println("课程id:"+teacherCourseInfo.getCourse_id());
+//        System.out.println("章节id:"+teacherCourseInfo.getChapter_id());
         return teacherService.courseVideoInfoDelete(teacherCourseInfo);
     }
 
@@ -54,6 +55,7 @@ public class TeacherController {
                                                     @RequestParam("chapter_id") Integer chapter_id,
                                                     @RequestParam("course_name") String course_name,
                                                     @RequestParam("course_category") String course_category,
+                                                    @RequestParam("course_create_time") Date course_create_time,
                                                     @RequestParam("course_time") Integer course_time,
                                                     @RequestParam("course_check_status") Integer course_check_status,
                                                     @RequestParam("course_open_time") Date course_open_time,
@@ -64,9 +66,11 @@ public class TeacherController {
                                                     @RequestParam("course_jie_name") String course_jie_name,
                                                     @RequestParam("file") MultipartFile[] files){
         TeacherCourseInfo teacherCourseInfo = new TeacherCourseInfo(user_id,course_id,chapter_id,
-                course_name,course_category,course_zhang_name,course_jie_name,course_src_path,
+                course_name,course_category,course_create_time,course_zhang_name,course_jie_name,course_src_path,
                 course_check_status,course_time,course_open_time,course_belong_to,course_origin,"");
-          return teacherService.uploadFile(teacherCourseInfo,files);
+//        System.out.println(teacherCourseInfo);
+         return teacherService.uploadFile(teacherCourseInfo,files);
+//        return null;
     }
 
 

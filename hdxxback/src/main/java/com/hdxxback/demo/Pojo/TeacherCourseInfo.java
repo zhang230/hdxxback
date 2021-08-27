@@ -21,6 +21,7 @@ public class TeacherCourseInfo {
     private Integer chapter_id;
     private String course_name;
     private String course_category;
+    private Date course_create_time;
     private String course_zhang_name;
     private String course_jie_name;
     private String course_src_path;
@@ -31,12 +32,13 @@ public class TeacherCourseInfo {
     private String course_origin;
     private String course_icon;
 
-    public TeacherCourseInfo(Integer user_id, Integer course_id, Integer chapter_id, String course_name, String course_category, String course_zhang_name, String course_jie_name, String course_src_path, Integer course_check_status, Integer course_time, Date course_open_time, String course_belong_to, String course_origin, String course_icon) {
+    public TeacherCourseInfo(Integer user_id, Integer course_id, Integer chapter_id, String course_name, String course_category, Date course_create_time, String course_zhang_name, String course_jie_name, String course_src_path, Integer course_check_status, Integer course_time, Date course_open_time, String course_belong_to, String course_origin, String course_icon) {
         this.user_id = user_id;
         this.course_id = course_id;
         this.chapter_id = chapter_id;
         this.course_name = course_name;
         this.course_category = course_category;
+        this.course_create_time = course_create_time;
         this.course_zhang_name = course_zhang_name;
         this.course_jie_name = course_jie_name;
         this.course_src_path = course_src_path;

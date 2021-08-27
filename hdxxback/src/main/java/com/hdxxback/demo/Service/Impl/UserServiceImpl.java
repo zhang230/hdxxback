@@ -4,17 +4,24 @@ import com.hdxxback.demo.Mapper.UserMapper;
 import com.hdxxback.demo.Pojo.Course;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.User;
+import com.hdxxback.demo.Pojo.User_course_chapter_info;
 import com.hdxxback.demo.Service.UserService;
 import com.hdxxback.demo.Utils.ProduceSrcPath;
+import jdk.nashorn.internal.ir.CallNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private ProduceSrcPath psp;
     @Autowired
     private UserMapper userMapper;
     @Override
@@ -24,6 +31,7 @@ public class UserServiceImpl implements UserService {
         if(tuser == null){
             msg="账号错误或者未注册";
         }else{
+            System.out.println(tuser);
             if(tuser.getUser_password().equalsIgnoreCase(user.getUser_password())) msg="操作成功";
             else msg="密码错误";
         }
@@ -47,7 +55,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultData<List<Course>> allCourseInfo(){
         List<Course> courselist=userMapper.allCourseInfo();
-//        System.out.println(courselist);
+
+//        System.out.println(courselist.size());
         return new ResultData<List<Course>>(200,"操作成功",courselist);
     }
 
@@ -63,9 +72,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultData<User> updateUserInfo(User tuser, MultipartFile file){
-                String avatorSrc= ProduceSrcPath.savePathAndProducePath(file);
+                String avatorSrc= psp.savePathAndProducePath(file);
+//                System.out.println(avatorSrc);
                 tuser.setUser_icon(avatorSrc);
                 Integer influRows=userMapper.updateUserInfo(tuser);
                 return new ResultData<User>(200,"操作成功",tuser);
+//        return null;
+    }
+    @Override
+    public ResultData<User_course_chapter_info> userCommit(User_course_chapter_info user_course_chapter_info){
+        Integer influRows=userMapper.insertUser_Chapter_Commit(user_course_chapter_info);
+        return new ResultData<User_course_chapter_info>(200,"操作成功",user_course_chapter_info);
+    }
+    @Override
+    public ResultData<List<User_course_chapter_info>> findUserCommit(User_course_chapter_info user_course_chapter_info){
+        List<User_course_chapter_info> uclist=userMapper.findUserCommit(user_course_chapter_info);
+//        System.out.println(uclist);
+//        System.out.println(user_course_chapter_info.getChapter_id());
+        return new ResultData<List<User_course_chapter_info>>(200,"操作成功",uclist);
     }
 }

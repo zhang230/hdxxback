@@ -9,6 +9,7 @@ import lombok.ToString;
 @JsonIgnoreProperties(value = { "handler" })
 public class Chapter {
     private Integer chapter_id;
+    private Integer course_id;
     private String course_zhang_name;
     private String course_jie_name;
     private String course_category;

@@ -1,5 +1,8 @@
 package com.hdxxback.demo.Utils;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -9,15 +12,23 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Component
+//制定常量资源路径
+@PropertySource({"classpath:application.properties"})
 public class ProduceSrcPath {
     //    windows  写入本地的数据
-    private static String UPLOADED_FOLDER = "C://springboot//";
-    private static String UPLOADED_VIDEO_FOLDER = "D:/Tomcat服务器/apache-tomcat-8.0.30/webapps/ROOT/src/advisor/upload/video/";
-    private static String UPLOADED_IMAGE_FOLDER="D:/Tomcat服务器/apache-tomcat-8.0.30/webapps/ROOT/src/advisor/upload/image/";
+    @Value("${UPLOADED_FOLDER}")
+    private  String UPLOADED_FOLDER;
+    @Value("${UPLOADED_VIDEO_FOLDER}")
+    private  String UPLOADED_VIDEO_FOLDER;
+    @Value("${UPLOADED_IMAGE_FOLDER}")
+    private  String UPLOADED_IMAGE_FOLDER;
 
     //插入数据库的数据
-    private static String DB_UPLOADED_VIDEO_FOLDER="http://localhost:8080/src/advisor/upload/video/";
-    private static String DB_UPLOADED_IMAGE_FOLDER="http://localhost:8080/src/advisor/upload/image/";
+    @Value("${DB_UPLOADED_VIDEO_FOLDER}")
+    private  String DB_UPLOADED_VIDEO_FOLDER;
+    @Value("${DB_UPLOADED_IMAGE_FOLDER}")
+    private  String DB_UPLOADED_IMAGE_FOLDER;
 
 
 //    Linux
@@ -25,7 +36,7 @@ public class ProduceSrcPath {
 //    private static String UPLOADED_VIDEO_FOLDER = "/home/sx/advisor/upload/video/";
 //    private static String UPLOADED_IMAGE_FOLDER="/home/sx/advisor/upload/image/";
 
-    public static String savePathAndProducePath(MultipartFile file){
+    public  String savePathAndProducePath(MultipartFile file){
         String pathOnServer="";
         if(file.isEmpty()){
             System.out.println("文件为空");
@@ -56,6 +67,7 @@ public class ProduceSrcPath {
             }else if(fileType.equalsIgnoreCase("jpeg")||fileType.equalsIgnoreCase("jpg")||fileType.equalsIgnoreCase("png")){
                 pathPrefix=UPLOADED_IMAGE_FOLDER;
                 DBpathPrefix=DB_UPLOADED_IMAGE_FOLDER;
+//                System.out.println("DBpathPrefix:"+DBpathPrefix);
             }else{
                 return null;
             }
@@ -69,7 +81,7 @@ public class ProduceSrcPath {
             e.printStackTrace();
             pathOnServer="";
         }
-        System.out.println(pathOnServer);
+//        System.out.println("服务器路径:"+DBpathOnServer);
         return DBpathOnServer;
     }
 }

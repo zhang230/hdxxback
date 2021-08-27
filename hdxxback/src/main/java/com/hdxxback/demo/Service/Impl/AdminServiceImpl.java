@@ -7,11 +7,14 @@ import com.hdxxback.demo.Pojo.User;
 import com.hdxxback.demo.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
+//事务回滚，保证出问题时不会触发数据库
+@Transactional
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;

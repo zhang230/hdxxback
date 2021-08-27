@@ -4,10 +4,12 @@ import com.hdxxback.demo.Mapper.TeacherMapper;
 import com.hdxxback.demo.Pojo.Course;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.TeacherCourseInfo;
+import com.hdxxback.demo.Pojo.User_course_chapter_info;
 import com.hdxxback.demo.Service.TeacherService;
 import com.hdxxback.demo.Utils.ProduceSrcPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +24,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class TeacherServiceImpl implements TeacherService {
 
 
 
-
+    @Autowired
+    private ProduceSrcPath psp;
 
 
     @Autowired
@@ -46,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
         }else{
             //形成课程头像路径
             //这里要实现本地路径的存储!!!
-           String icon_src= ProduceSrcPath.savePathAndProducePath(files[1]);
+           String icon_src= psp.savePathAndProducePath(files[1]);
 //           System.out.println("icon_src:"+icon_src);
            teacherCourseInfo.setCourse_icon(icon_src);
             //如果没有相同的course_name,那么就把新的course_name插入到course表中，得到返回的主键
@@ -57,14 +61,20 @@ public class TeacherServiceImpl implements TeacherService {
 
         //得到course_id之后，把user_id和course_id插入user_course_chapter_info表
         Integer user_id=teacherCourseInfo.getUser_id();
-        Integer influRowucci=teacherMapper.insertUser_course_chapter_info(user_id,course_id);
+
+        //判断是否有重复的，如果有就不用把user_id和course_id插入User_course_chapter_info表了
+        User_course_chapter_info tt=teacherMapper.findSameUCCI(user_id,course_id);
+        if(tt==null) {
+            Integer influRowucci=teacherMapper.insertUser_course_chapter_info(user_id,course_id);
+        }
             //节的值就是课程名字
             teacherCourseInfo.setCourse_jie_name(files[1].getOriginalFilename());
             //这里要实现本地路径的存储!!!
-            String video_src=ProduceSrcPath.savePathAndProducePath(files[0]);
+            String video_src=psp.savePathAndProducePath(files[0]);
 //            System.out.println("video_src:"+video_src);
         //设置课程视频路径
         teacherCourseInfo.setCourse_src_path(video_src);
+        teacherCourseInfo.setCourse_id(course_id);
         Integer influRow=teacherMapper.insertChapter(teacherCourseInfo);
         //得到chapter_id
         Integer chapter_id=teacherCourseInfo.getChapter_id();
@@ -90,7 +100,9 @@ public class TeacherServiceImpl implements TeacherService {
             return new ResultData<List<TeacherCourseInfo>>(200,"操作成功",list);
     }
     public ResultData<TeacherCourseInfo> courseVideoInfoDelete(TeacherCourseInfo teacherCourseInfo){
-        Integer influRows=teacherMapper.courseVideoInfoDeleteCourse_Chapter(teacherCourseInfo);
+//        因为有其他用户评论了该课程，所以需要删除chapter_id相等的记录在user_course_chapter_info表中
+        Integer influRows=teacherMapper.user_course_chapter_infoDelete(teacherCourseInfo);
+        influRows=teacherMapper.courseVideoInfoDeleteCourse_Chapter(teacherCourseInfo);
         influRows=teacherMapper.courseVideoInfoDeleteChapter(teacherCourseInfo);
         return new ResultData<TeacherCourseInfo>(200,"操作成功",teacherCourseInfo);
     }

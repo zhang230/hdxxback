@@ -3,6 +3,7 @@ package com.hdxxback.demo.Mapper;
 import com.hdxxback.demo.Pojo.Course;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.TeacherCourseInfo;
+import com.hdxxback.demo.Pojo.User_course_chapter_info;
 import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public interface TeacherMapper {
 //    chapter.course_zhang_name,chapter.course_jie_name,
 //    chapter.course_src_path,chapter.course_check_status
     @Select("select u.user_id as user_id,cs.course_id as course_id,c.chapter_id as chapter_id," +
-            "cs.course_name as course_name,cs.course_category as course_category,c.course_zhang_name as course_zhang_name," +
+            "cs.course_name as course_name,cs.course_category as course_category,cs.course_create_time as course_create_time,c.course_zhang_name as course_zhang_name," +
             "c.course_jie_name as course_jie_name,c.course_src_path as course_src_path,c.course_check_status as course_check_status," +
             "cs.course_time as course_time,cs.course_open_time as course_open_time,cs.course_belong_to as course_belong_to," +
             "cs.course_origin as course_origin,cs.course_icon as course_icon" +
@@ -50,7 +51,7 @@ public interface TeacherMapper {
     @Select("select * from course where course_name=#{course_name} and delete_flag=0")
     public Course findSameCourseNameCouse(TeacherCourseInfo teacherCourseInfo);
 
-    @Insert("insert into course(course_name,course_category,course_time,course_open_time,course_belong_to,course_origin,course_icon,course_status) values(#{course_name},#{course_category},#{course_time},#{course_open_time},#{course_belong_to},#{course_origin},#{course_icon},'免费公开')")
+    @Insert("insert into course(course_name,course_category,course_create_time,course_time,course_open_time,course_belong_to,course_origin,course_icon,course_status) values(#{course_name},#{course_category},#{course_create_time},#{course_time},#{course_open_time},#{course_belong_to},#{course_origin},#{course_icon},'免费公开')")
     @Options(useGeneratedKeys = true,keyProperty = "course_id",keyColumn = "course_id")
     public Integer insertCourse(TeacherCourseInfo teacherCourseInfo);
 
@@ -58,7 +59,7 @@ public interface TeacherMapper {
     @Insert("insert into user_course_chapter_info(user_id,course_id) values(#{user_id},#{course_id})")
     public Integer insertUser_course_chapter_info(Integer user_id,Integer course_id);
 
-    @Insert("insert into chapter(course_check_status,course_src_path,course_zhang_name,course_jie_name) values(#{course_check_status},#{course_src_path},#{course_zhang_name},#{course_zhang_name})")
+    @Insert("insert into chapter(course_id,course_check_status,course_src_path,course_zhang_name,course_jie_name) values(#{course_id},#{course_check_status},#{course_src_path},#{course_zhang_name},#{course_zhang_name})")
     @Options(useGeneratedKeys = true,keyProperty = "chapter_id",keyColumn = "chapter_id")
     public Integer insertChapter(TeacherCourseInfo teacherCourseInfo);
 
@@ -66,7 +67,7 @@ public interface TeacherMapper {
     public Integer insertCourse_chapter(Integer course_id,Integer chapter_id);
 
     @Select("select u.user_id as user_id,cs.course_id as course_id,c.chapter_id as chapter_id," +
-            "cs.course_name as course_name,cs.course_category as course_category,c.course_zhang_name as course_zhang_name," +
+            "cs.course_name as course_name,cs.course_category as course_category,cs.course_create_time as course_create_time,c.course_zhang_name as course_zhang_name," +
             "c.course_jie_name as course_jie_name,c.course_src_path as course_src_path,c.course_check_status as course_check_status," +
             "cs.course_time as course_time,cs.course_open_time as course_open_time,cs.course_belong_to as course_belong_to," +
             "cs.course_origin as course_origin,cs.course_icon as course_icon" +
@@ -80,6 +81,8 @@ public interface TeacherMapper {
             "cs.course_name like #{course_name} or cs.course_category like #{course_category}) and cs.delete_flag=0 and c.delete_flag=0")
     public List<TeacherCourseInfo> findCourseVideoInfo(TeacherCourseInfo teacherCourseInfo);
 
+    @Select("select * from user_course_chapter_info where user_id=#{user_id} and course_id=#{course_id}")
+    public User_course_chapter_info findSameUCCI(Integer user_id, Integer course_id);
     //虚拟删除
     @Delete("delete from course_chapter " +
             "where course_id=#{course_id} and chapter_id=#{chapter_id}")
@@ -89,5 +92,7 @@ public interface TeacherMapper {
             "where chapter_id=#{chapter_id}")
     public Integer courseVideoInfoDeleteChapter(TeacherCourseInfo teacherCourseInfo);
 
+    @Delete("delete from user_course_chapter_info where chapter_id=#{chapter_id}")
+    public Integer user_course_chapter_infoDelete(TeacherCourseInfo teacherCourseInfo);
 
 }

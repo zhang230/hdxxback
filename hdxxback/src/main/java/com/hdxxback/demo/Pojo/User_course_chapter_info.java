@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
 @ToString
 @JsonIgnoreProperties(value = { "handler" })
@@ -20,4 +23,6 @@ public class User_course_chapter_info {
     private String user_commit;
     private Boolean course_open_flag;
     private String course_note;
+    private Date user_commit_time;
+    private List<User> users;
 }

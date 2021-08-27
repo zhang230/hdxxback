@@ -1,9 +1,6 @@
 package com.hdxxback.demo.Mapper;
 
-import com.hdxxback.demo.Pojo.Chapter;
-import com.hdxxback.demo.Pojo.Course;
-import com.hdxxback.demo.Pojo.ResultData;
-import com.hdxxback.demo.Pojo.User;
+import com.hdxxback.demo.Pojo.*;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +22,10 @@ public interface UserMapper {
             "#{role},#{delete_flag},#{a_points})")
     public Integer insertUser(User user);
 
-    @Select("select * from chapter where chapter_id=#{chapter_id}")
-    public Chapter getChaptersByCourse_id(Integer chapter_id);
+    @Select("select * from chapter where course_id=#{course_id}")
+    public Chapter getChaptersByCourse_id(Integer course_id);
+
+
 
     @Select("select * from course where course_status='免费公开'")
     @Results( id="userMap1",value={
@@ -100,4 +99,20 @@ public interface UserMapper {
             "position=#{position},a_points=#{a_points},account_balance=#{account_balance},user_icon=#{user_icon} "+
             "where user_id=#{user_id}")
     public Integer updateUserInfo(User tuser);
+
+
+    @Insert("insert into user_course_chapter_info(chapter_id,user_id,user_commit,user_commit_time) values(#{chapter_id},#{user_id},#{user_commit},#{user_commit_time})")
+    public Integer insertUser_Chapter_Commit(User_course_chapter_info user_course_chapter_info);
+
+    @Select("select * from user where user_id=#{user_id}")
+    public List<User> getUsersByChapter_id(Integer user_id);
+
+    @Select("select * from user_course_chapter_info where chapter_id=#{chapter_id}")
+    @Results( id="userMap3",value={
+            @Result(id=true,column = "id",property = "id"),
+            @Result(column = "chapter_id",property = "chapter_id"),
+            @Result(column = "user_id",property = "user_id"),
+            @Result(column = "user_id",property = "users",many=@Many(select="com.hdxxback.demo.Mapper.UserMapper.getUsersByChapter_id",fetchType = FetchType.LAZY))
+    })
+    public List<User_course_chapter_info> findUserCommit(User_course_chapter_info user_course_chapter_info);
 }

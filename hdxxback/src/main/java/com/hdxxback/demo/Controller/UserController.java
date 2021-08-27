@@ -3,6 +3,7 @@ package com.hdxxback.demo.Controller;
 import com.hdxxback.demo.Pojo.Course;
 import com.hdxxback.demo.Pojo.ResultData;
 import com.hdxxback.demo.Pojo.User;
+import com.hdxxback.demo.Pojo.User_course_chapter_info;
 import com.hdxxback.demo.Service.Impl.UserServiceImpl;
 import com.hdxxback.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +65,17 @@ public class UserController {
             return userService.updateUserInfo(tuser,file);
     }
 
+    @CrossOrigin
+    @PostMapping("/userCommit")
+    public ResultData<User_course_chapter_info> userCommit(@RequestBody User_course_chapter_info user_course_chapter_info){
+//        System.out.println(user_course_chapter_info.getUser_commit_time());
+        return userService.userCommit(user_course_chapter_info);
+    }
+
+    @CrossOrigin
+    @PostMapping("/findUserCommit")
+    public ResultData<List<User_course_chapter_info>> findUserCommit(@RequestBody User_course_chapter_info user_course_chapter_info){
+//        System.out.println(user_course_chapter_info);
+        return userService.findUserCommit(user_course_chapter_info);
+    }
 }
