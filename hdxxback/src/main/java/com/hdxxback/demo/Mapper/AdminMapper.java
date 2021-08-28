@@ -71,4 +71,6 @@ public interface AdminMapper {
     @Select("select * from course_category_manage where course_category_name like concat('%',#{course_category_name},'%')")
     List<Course_category_manage> findCourseClassInfo(Course_category_manage course_category_manage);
 
+    @Delete("delete from user_course_chapter_info where user_id=#{user_id}")
+    Integer userInfoDeleteUser_course_chapter_info(User user);
 }

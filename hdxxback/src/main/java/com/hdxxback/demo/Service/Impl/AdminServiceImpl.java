@@ -43,7 +43,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public ResultData<User> userInfoDelete(User user){
-         Integer rows=adminMapper.userInfoDelete(user);
+         Integer rows=adminMapper.userInfoDeleteUser_course_chapter_info(user);
+            rows=adminMapper.userInfoDelete(user);
 //         System.out.println("受影响的行: "+rows);
          return new ResultData<User>(200,"操作成功",user);
     }
